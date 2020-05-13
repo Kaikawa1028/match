@@ -1,0 +1,71 @@
+version: "3"
+services:
+  nginx:
+    image: nginx:alpine
+    container_name: match_nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    links:
+      - app
+    volumes:
+      - "./public:/app/public"
+      - "./etc/nginx/nginx.conf:/etc/nginx/nginx.conf"
+
+  app:
+    image: "arsaga/laravel-alpine:7.2-zip"
+    working_dir: /app
+    container_name: match_app
+    hostname: app
+    links:
+      - mysql
+    ports:
+      - "9000:9000"
+    volumes:
+      - ".:/app"
+      - "./.docker/php/php.ini:/usr/local/etc/php/conf.d/php.ini"
+
+  redis:
+    image: redis:alpine
+    container_name: match_redis
+    hostname: redis
+    ports:
+      - "5432:5432"
+
+  # elasticsearch:
+  #   image: elasticsearch:5.5
+  #   container_name: telemedicine_server_elasticsearch
+  #   hostname: elasticsearch
+  #   expose:
+  #     - 9200
+  #   volumes:
+  #     - "./elasticsearch.yml:/etc/elasticsearch/elasticsearch.yml"
+  #   ports:
+  #     - "9200:9200"
+  #     - "9300:9300"
+  #   extra_hosts:
+  #    - "es.telemedicine.dev:127.0.0.1"
+
+  # kibana:
+  #     image: kibana:5.5
+  #     container_name: telemedicine_server_kibana
+  #     hostname: kibana
+  #     expose:
+  #       - 5601
+  #     ports:
+  #       - "5601:5601"
+  #     environment:
+  #       - ELASTICSEARCH_URL=http://elasticsearch:9200
+
+  mysql:
+    image: mysql:5
+    container_name: match_mysql
+    hostname: mysql
+    expose:
+      - 3306
+    ports:
+      - "3306:3306"
+    environment:
+      - "MYSQL_ROOT_PASSWORD=root"
+      - "MYSQL_DATABASE=laravel"
+      - "MYSQL_USER=root"
