@@ -28,11 +28,7 @@ class MypageController extends Controller
 
     public function confirm(Request $request)
     {
-        $file = $request->file('img_url');
-
-        $path = Storage::disk('s3')->putFile('/', $file, 'public');
-        dd(Storage::disk('s3')->url($path));
-        //Todo
+       //Todo
         //バリデーションをここで使う
         return view('mypage.confirm')->with('data', $request);
     }
