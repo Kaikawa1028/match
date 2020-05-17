@@ -3,9 +3,9 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-4">
+        <div class="col-md-3">
             <div class="card mb-4">
-                <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Others/images/43.jpg"  alt="写真なし"></img>
+                <img class="card-img-top" src="@if($user_profile === null) @else {{ $user_profile->img_url }} @endif"  alt="写真なし"></img>
                 <div class="card-body">
                     <h4 class="card-title">
                         ユーザ名
@@ -46,7 +46,7 @@
                 <tbody>
                     <tr>
                         <th scope="row">性別</th>
-                        <td>@if ($user_profile === null) @else @if ($user_profile->sex === 1) 男 @else 女 @endif</td>
+                        <td>@if ($user_profile === null) @else @if ($user_profile->sex === 1) 男 @else 女 @endif @endif</td>
                     </tr>
                     <tr>
                         <th scope="row">年齢</th>
