@@ -18,3 +18,11 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::middleware('auth')->group( function() {
+    Route::get('/mypage', 'MypageController@index')->name('mypage');
+    Route::get('/mypage/edit', 'MypageController@edit')->name('mypage.edit');
+    Route::post('/mypage/confirm', 'MypageController@confirm')->name('mypage.confirm');
+    Route::post('/mypage/store', 'MypageController@store')->name('mypage.store');
+    Route::get('/mypage/complete', 'MypageController@complete')->name('mypage.complete');
+});
