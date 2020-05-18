@@ -26,10 +26,11 @@ class S3ImageFileRepository implements ImageFileRepository
 
         $img_data = str_replace('data:image/png;base64,', '', $img_data);
         $data = base64_decode($img_data);
-        file_put_contents("$file_name", $data);
+        file_put_contents($file_name, $data);
 
         $path = Storage::disk('s3')->putFile($file_directory, $file_name, "public");
         $img_url = Storage::disk('s3')->url($path);
+        unlink($file_name);
 
         return $img_url;
     }
