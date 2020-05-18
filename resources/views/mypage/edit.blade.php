@@ -37,8 +37,8 @@
                     <span class="badge badge-primary">必須</span>
                     <div class="w-25">
                         <select id="residence" name="residence" class="form-control">
-                            <option value="東京都" >東京都</option>
-                            <option value="静岡県" >静岡県</option>
+                            <option value="東京都" @if(old("residence")) @if(old("residence") == "東京都") selected @else @endif @else @if(!is_null($user_profile) && $user_profile->residence == "東京都") selected @else   @endif @endif>東京都</option>
+                            <option value="静岡県" @if(old("residence")) @if(old("residence") == "静岡県") selected @else @endif @else @if(!is_null($user_profile) && $user_profile->residence == "静岡県") selected @else   @endif @endif>静岡県</option>
                         </select>
                     </div>
                 </div>
