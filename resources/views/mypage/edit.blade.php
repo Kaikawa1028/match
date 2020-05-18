@@ -12,7 +12,7 @@
                 <div class="form-group">
                     <label for="user_name">ユーザー名</label>
                     <span class="badge badge-primary">必須</span>
-                    <input type="text" id="user_name" name="user_name" class="form-control @error('user_name') is-invalid @enderror" value="{{ old('user_name') ?? $user_profile->user_name ?? '' }}">
+                    <input type="text" id="user_name" name="user_name" class="form-control @error('user_name') is-invalid @enderror" value="{{ old('user_name') ?? $result['user_profile']->user_name ?? '' }}">
                     @error('user_name')
                         <span class="invalid-feedback">
                             <strong>{{ $message }}</strong>
@@ -26,8 +26,8 @@
                     <span class="badge badge-primary">必須</span>
                     <div class="w-25">
                         <select id="age" name="age" class="form-control @error('age') is-invalid @enderror">
-                            <option value="25" @if(old("age")) @if(old("age") == 25) selected @else @endif @else @if(!is_null($user_profile) && $user_profile->age == "25") selected @else   @endif @endif>25歳</option>
-                            <option value="26" @if(old("age")) @if(old("age") == 26) selected @else @endif @else @if(!is_null($user_profile) && $user_profile->age == "26") selected @else   @endif @endif>26歳</option>
+                            <option value="25" @if(old("age")) @if(old("age") == 25) selected @else @endif @else @if(!is_null($result['user_profile']) && $result['user_profile']->age == "25") selected @else   @endif @endif>25歳</option>
+                            <option value="26" @if(old("age")) @if(old("age") == 26) selected @else @endif @else @if(!is_null($result['user_profile']) && $result['user_profile']->age == "26") selected @else   @endif @endif>26歳</option>
                         </select> 
                     </div>
                 </div>
@@ -37,8 +37,8 @@
                     <span class="badge badge-primary">必須</span>
                     <div class="w-25">
                         <select id="residence" name="residence" class="form-control">
-                            <option value="東京都" @if(old("residence")) @if(old("residence") == "東京都") selected @else @endif @else @if(!is_null($user_profile) && $user_profile->residence == "東京都") selected @else   @endif @endif>東京都</option>
-                            <option value="静岡県" @if(old("residence")) @if(old("residence") == "静岡県") selected @else @endif @else @if(!is_null($user_profile) && $user_profile->residence == "静岡県") selected @else   @endif @endif>静岡県</option>
+                            <option value="東京都" @if(old("residence")) @if(old("residence") == "東京都") selected @else @endif @else @if(!is_null($result['user_profile']) && $result['user_profile']->residence == "東京都") selected @else   @endif @endif>東京都</option>
+                            <option value="静岡県" @if(old("residence")) @if(old("residence") == "静岡県") selected @else @endif @else @if(!is_null($result['user_profile']) && $result['user_profile']->residence == "静岡県") selected @else   @endif @endif>静岡県</option>
                         </select>
                     </div>
                 </div>
@@ -46,7 +46,7 @@
                 <div class="form-group">
                     <label for="job">職業</label>
                     <span class="badge badge-primary">必須</span>
-                    <input type="text" id="job" name="job" class="form-control @error('job') is-invalid @enderror" value="{{ old('job') ?? $user_profile->job ?? '' }}">
+                    <input type="text" id="job" name="job" class="form-control @error('job') is-invalid @enderror" value="{{ old('job') ?? $result['user_profile']->job ?? '' }}">
                     @error('job')
                         <span class="invalid-feedback">
                             <strong>{{ $message }}</strong>
@@ -62,7 +62,7 @@
                 <div class="form-group">
                     <label for="text">自己紹介文</label>
                     <span class="badge badge-primary">必須</span>
-                    <textarea id="text" name="text" class="form-control @error('text') is-invalid @enderror" placeholder="最低5文字以上、最高1000文字まで">{{ old('text') ?? $user_profile->text ?? '' }}</textarea>
+                    <textarea id="text" name="text" class="form-control @error('text') is-invalid @enderror" placeholder="最低5文字以上、最高1000文字まで">{{ old('text') ?? $result['user_profile']->text ?? '' }}</textarea>
                     @error('text')
                         <span class="invalid-feedback">
                             <strong>{{ $message }}</strong>

@@ -19,37 +19,37 @@
                     <tbody>
                         <tr>
                             <th scope="row">ユーザ名</th>
-                            <td>{{ $data['user_name'] }}</td>
+                            <td>{{ $result['user_name'] }}</td>
                         </tr>
                         <tr>
                             <th scope="row">年齢</th>
-                            <td>{{ $data['age'] }}</td>
+                            <td>{{ $result['age'] }}</td>
                         </tr>
                         <tr>
                             <th scope="row">居住地</th>
-                            <td>{{ $data['residence'] }}</td>
+                            <td>{{ $result['residence'] }}</td>
                         </tr>
                         <tr>
                             <th scope="row">職業</th>
-                            <td>{{ $data['job'] }}</td>
+                            <td>{{ $result['job'] }}</td>
                         </tr>
                         <tr>
                             <th scope="row">写真</th>
-                            <td><img src="{{ $data['img_data'] }}"/ style="width:200px"></td>
+                            <td><img src="{{ $result['img_data'] }}"/ style="width:200px"></td>
                         </tr>
                         <tr>
                             <th scope="row">自己紹介文</th>
-                            <td>{{ $data['text'] }}</td>
+                            <td>{{ $result['text'] }}</td>
                         </tr>
                     </tbody>
                 </table>
 
-                <input type="hidden" id="user_name" name="user_name" value="{{ $data['user_name'] }}" class="form-control">
-                <input type="hidden" id="age" name="age" value="{{ $data['age'] }}" class="form-control">
-                <input type="hidden" id="residence" name="residence" value="{{ $data['residence'] }}" class="form-control">
-                <input type="hidden" id="job" name="job" value="{{ $data['job'] }}" class="form-control">
-                <input type="hidden" id="img_data" name="img_data" value="{{ $data['img_data'] }}" class="form-control">
-                <input type="hidden" id="text" name="text" value="{{ $data['text'] }}" class="form-control">
+                <input type="hidden" id="user_name" name="user_name" value="{{ $result['user_name'] }}" class="form-control">
+                <input type="hidden" id="age" name="age" value="{{ $result['age'] }}" class="form-control">
+                <input type="hidden" id="residence" name="residence" value="{{ $result['residence'] }}" class="form-control">
+                <input type="hidden" id="job" name="job" value="{{ $result['job'] }}" class="form-control">
+                <input type="hidden" id="img_data" name="img_data" value="{{ $result['img_data'] }}" class="form-control">
+                <input type="hidden" id="text" name="text" value="{{ $result['text'] }}" class="form-control">
 
                 <button class="btn btn-info my-4 btn-block" type="submit">ユーザ情報変更確認画面へ</button>
 
