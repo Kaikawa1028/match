@@ -3,9 +3,9 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-3">
+        <div class="col-7 col-md-3">
             <div class="card mb-4">
-                <img class="card-img-top" src="@if($result['user_profile'] === null) @else {{ $result['user_profile']->img_url }} @endif"  alt="写真なし"></img>
+                <img class="card-img-top" src="{{ $result['user_profile']->img_url ?? 'https://matching-kou.s3.ap-northeast-1.amazonaws.com/3/TW2fauu9FNUFIYorYS8zqcSee1w2V6HPR36uJKOj.png' }}"  alt="写真なし"></img>
                 <div class="card-body">
                     <h4 class="card-title">
                         ユーザ名
@@ -46,7 +46,7 @@
                 <tbody>
                     <tr>
                         <th scope="row">性別</th>
-                        <td>@if ($result['user_profile'] === null) @else @if ($result['user_profile']->sex === 1) 男 @else 女 @endif @endif</td>
+                        <td>@if ($user->sex == 1) 男 @else 女 @endif</td>
                     </tr>
                     <tr>
                         <th scope="row">年齢</th>
