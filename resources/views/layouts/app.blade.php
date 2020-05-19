@@ -32,12 +32,14 @@
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    @auth
                     <div class="navbar-nav">
-                        <a class="nav-item nav-link" href="#">お相手を探す</a>
+                        <a class="nav-item nav-link" href="{{ route('user') }}">お相手を探す</a>
                         <a class="nav-item nav-link" href="#">いいね</a>
                         <a class="nav-item nav-link" href="#">メッセージ</a>
                         <a class="nav-item nav-link" href="{{ route('mypage') }}">マイページ</a>
                     </div>
+                    @endauth
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
 
