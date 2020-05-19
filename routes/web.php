@@ -11,15 +11,14 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::middleware('auth')->group( function() {
+
+    Route::get('/', 'UserController@index')->name('user');
+
     Route::get('/mypage', 'MypageController@index')->name('mypage');
     Route::get('/mypage/edit', 'MypageController@edit')->name('mypage.edit');
     Route::post('/mypage/confirm', 'MypageController@confirm')->name('mypage.confirm');
