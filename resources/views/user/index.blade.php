@@ -38,7 +38,7 @@
                         <img class="card-img-top" src="{{ $user->user_profile->img_url }}"  alt="写真なし"></img>
                         <div class="card-body">
                             <h6 class="card-title">{{$user->user_profile->user_name}}</h4>
-                            <a href="{{ route('user.show', ['user_id' => $user->id ]) }}" class="stretched-link"><p class="card-text">{{ $user->user_profile->age }}  {{ $user->user_profile->residence }}</p></a>
+                            <a href="{{ route('user.show', ['user' => $user->id ]) }}" class="stretched-link"><p class="card-text">{{ $user->user_profile->age }}  {{ $user->user_profile->residence }}</p></a>
                         </div>
                     </div>
                 </div>
