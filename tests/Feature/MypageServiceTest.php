@@ -19,7 +19,6 @@ class MypageServiceTest extends TestCase
         parent::setUp();
 
         $this->mypage_service = app(MypageService::class);
-        $this->instance(ImageFileRepository::class, TestImageFileRepository::class);
 
         $this->seed('UserTableSeeder');
         $this->seed('UserProfileTableSeeder');

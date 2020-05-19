@@ -4,6 +4,7 @@ namespace App\Service;
 
 use App\Repository\MypageRepository;
 use App\Repository\Contract\ImageFileRepository;
+use App\Model\UserProfile;
 
 class MypageService
 {

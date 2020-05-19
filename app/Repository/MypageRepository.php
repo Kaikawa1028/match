@@ -17,7 +17,7 @@ class MypageRepository
      * @param string $user_id ユーザID
      * @return UserProfile　ユーザプロフィール
      */
-    public function getUserProfile(string $user_id): UserProfile
+    public function getUserProfile(string $user_id): ?UserProfile
     {
         return $this->user_profile->where('user_id', $user_id)->first();
     }

@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-7 col-md-3">
             <div class="card mb-4">
-                <img class="card-img-top" src="{{ $result['user_profile']->img_url ?? 'https://matching-kou.s3.ap-northeast-1.amazonaws.com/3/TW2fauu9FNUFIYorYS8zqcSee1w2V6HPR36uJKOj.png' }}"  alt="写真なし"></img>
+                <img class="card-img-top" src="@if($result['user_profile'] === null) @else {{ $result['user_profile']->img_url }} @endif"  alt="写真なし"></img>
                 <div class="card-body">
                     <h4 class="card-title">
                         ユーザ名
@@ -14,28 +14,10 @@
                 </div>
             </div>
             <div class="w-100 text-center mb-4">
-                <a href="{{ route('mypage.edit') }}"><button type="button" class="btn btn-default">ユーザ情報編集</button></a>
+                <a href="{{ route('mypage.edit') }}"><button type="button" class="btn btn-success"><strong>いいねを送る</strong></button></a>
             </div>
         </div>
         <div class="col-md-7">
-            <table class="table mb-5">
-                <thead>
-                    <tr>
-                        <th scope="col">登録情報</th>
-                        <th scope="col"></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row">メールアドレス</th>
-                        <td>{{ $user->email }}</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">氏名</th>
-                        <td>{{ $user->name }}</td>
-                    </tr>
-                </tbody>
-            </table>
             <table class="table">
                 <thead>
                     <tr>
@@ -46,7 +28,7 @@
                 <tbody>
                     <tr>
                         <th scope="row">性別</th>
-                        <td>@if ($user->sex == 1) 男 @else 女 @endif</td>
+                        <td>@if ($result['user_profile'] === null) @else @if ($result['user_profile']->sex === 1) 男 @else 女 @endif @endif</td>
                     </tr>
                     <tr>
                         <th scope="row">年齢</th>
