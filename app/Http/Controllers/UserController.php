@@ -4,46 +4,43 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Service\UserService;
 use App\User;
+use App\Model\UserProfile;
 
 class UserController extends Controller
 {
+    private $user_service;
+
+    public function __construct(UserService $user_service)
+    {
+        $this->user_service = $user_service;
+    }
+
+    /**
+     * ユーザ一覧の表示
+     */
     public function index(Request $request)
     {
-        //$user = Auth::user();
-
-
+        $user = Auth::user();
         //男性か女性を判定
-        //$target_sex =  $user->sex == 1 ? 0 : 1;
-
-        $target_sex = 0;
-        
-        //対象の性別のuserを引っ張ってくる。$requestが存在している場合はその条件も合わせる。デフォルトは新着順(登録された順)
-        $query = User::query()->with('user_profile');
-        $query->where('sex', $target_sex);
-
-        if(!is_null($request->age)) {
-            $age = $request->age;
-            $query->whereHas('user_profile', function($q) use ($age){
-                $q->where('age', $age);
-            });
-        }
-
-        if(!is_null($request->residence)) {
-            $residence = $request->residence;
-            $query->whereHas('user_profile', function($q) use ($residence){
-                $q->where('residence', $residence);
-            });
-        }
-
-        $users = $query->paginate(12);
-
-        $result = [
-            "users" => $users,
-        ];
+        $target_sex =  $user->sex == 1 ? 0 : 1;
+        $result = $this->user_service->showUserList($target_sex, $request->all());
 
         return view('user.index')
                 ->with('result', $result);
 
+    }
+
+    /**
+     * ユーザ詳細の表示
+     */
+    public function show(User $user)
+    {
+        $result = $this->user_service->showUser($user->id);
+
+        return view('user.show')
+                ->with('user', $user)
+                ->with('result', $result);
     }
 }
