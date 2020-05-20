@@ -26,20 +26,18 @@ class UserRepository
         $query = $this->user->query()->with('user_profile');
         $query->where('sex', $target_sex);
 
-        if(!empty($data)) {
-            if(!is_null($data['age'])) {
-                $age = $data['age'];
-                $query->whereHas('user_profile', function($q) use ($age){
-                    $q->where('age', $age);
-                });
-            }
-    
-            if(!is_null($data['residence'])) {
-                $residence = $data['residence'];
-                $query->whereHas('user_profile', function($q) use ($residence){
-                    $q->where('residence', $residence);
-                });
-            }
+        if(array_key_exists('age', $data) && !is_null($data['age'])) {
+            $age = $data['age'];
+            $query->whereHas('user_profile', function($q) use ($age){
+                $q->where('age', $age);
+            });
+        }
+
+        if(array_key_exists('residence', $data) && !is_null($data['residence'])) {
+            $residence = $data['residence'];
+            $query->whereHas('user_profile', function($q) use ($residence){
+                $q->where('residence', $residence);
+            });
         }
 
         $users = $query->paginate(12);
