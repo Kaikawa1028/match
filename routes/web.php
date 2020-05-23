@@ -16,9 +16,11 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::middleware('auth')->group( function() {
-
     Route::get('/', 'UserController@index')->name('user');
     Route::get('/user/{user}', 'UserController@show')->name('user.show');
+    Route::put('/like/{user}', 'LikeController@send')->name('like.send');
+    Route::delete('/like/{user}', 'LikeController@delete')->name('like.delete');
+    Route::post('/like/{user}', 'LikeController@receive')->name('like.receive');
 
     Route::get('/mypage', 'MypageController@index')->name('mypage');
     Route::get('/mypage/edit', 'MypageController@edit')->name('mypage.edit');
