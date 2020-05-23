@@ -21,6 +21,8 @@ Route::middleware('auth')->group( function() {
     Route::put('/like/{user}', 'LikeController@send')->name('like.send');
     Route::delete('/like/{user}', 'LikeController@delete')->name('like.delete');
     Route::post('/like/{user}', 'LikeController@receive')->name('like.receive');
+    Route::get('/like/receive', 'LikeController@receiveList')->name('like.receive.list');
+    Route::get('/like/send', 'LikeController@sendList')->name('like.send.list');
 
     Route::get('/mypage', 'MypageController@index')->name('mypage');
     Route::get('/mypage/edit', 'MypageController@edit')->name('mypage.edit');
