@@ -20,9 +20,9 @@
             </ul>
         </div>
     </div>
-    <div class="row justify-content-center">
+    <div class="row">
         @foreach($likes as $like)
-        <div class="col-6 border-bottom @if($loop->index % 2 == 0) border-right @endif">
+        <div class="col-md-6 mb-4 border-bottom @if($loop->index % 2 == 0) border-right @endif">
             <div class="row">
                 <div class="col-4">
                     <img class="rounded-circle w-100" src="{{ $like->receive_user->user_profile->img_url ?? 'https://matching-kou.s3.ap-northeast-1.amazonaws.com/3/TW2fauu9FNUFIYorYS8zqcSee1w2V6HPR36uJKOj.png' }}"  alt="写真なし"></img>
