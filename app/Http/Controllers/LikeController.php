@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\User;
 use Carbon\Carbon;
 use App\Model\Like;
+use App\Model\Room;
 use Illuminate\Support\Facades\Auth;
 
 class LikeController extends Controller
@@ -56,6 +57,24 @@ class LikeController extends Controller
         $like = Like::where('from_user_id', $user->id)->where('to_user_id', $auth_user->id)->first();
 
         $like->status = "matched";
+    
+        $room = new Room();
+
+        if($auth_user->sex == 1) {
+            $room_id = $room->create([
+                'man_user_id'    => $like->to_user_id,
+                'woman_user_id'  => $like->from_user_id 
+            ])->id;
+        } else {
+            $room_id = $room->create([
+                'man_user_id'    => $like->from_user_id,
+                'woman_user_id'  => $like->to_user_id 
+            ])->id;
+        }
+
+        $like->room_id = $room_id;
         $like->save();
+
+        return redirect()->route('room.message', ['room' => $room_id]);
     }
 }
