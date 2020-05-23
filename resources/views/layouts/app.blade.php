@@ -35,7 +35,7 @@
                     @auth
                     <div class="navbar-nav">
                         <a class="nav-item nav-link" href="{{ route('user') }}">お相手を探す</a>
-                        <a class="nav-item nav-link" href="#">いいね</a>
+                        <a class="nav-item nav-link" href="{{ route('like.receive.list') }}">いいね</a>
                         <a class="nav-item nav-link" href="#">メッセージ</a>
                         <a class="nav-item nav-link" href="{{ route('mypage') }}">マイページ</a>
                     </div>
