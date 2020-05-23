@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-7 col-md-3">
             <div class="card mb-4">
-                <img class="card-img-top" src="@if($result['user_profile'] === null) @else {{ $result['user_profile']->img_url }} @endif"  alt="写真なし"></img>
+                <img class="card-img-top" src="{{ $result['user_profile']->img_url ?? 'https://matching-kou.s3.ap-northeast-1.amazonaws.com/3/TW2fauu9FNUFIYorYS8zqcSee1w2V6HPR36uJKOj.png' }}"  alt="写真なし"></img>
                 <div class="card-body">
                     <h4 class="card-title">
                         ユーザ名
@@ -13,9 +13,9 @@
                     <p class="h5"><strong>@if ($result['user_profile'] === null) @else {{ $result['user_profile']->user_name }} @endif</strong></p>
                 </div>
             </div>
-            <div class="w-100 text-center mb-4">
-                <a href="{{ route('mypage.edit') }}"><button type="button" class="btn btn-success"><strong>いいねを送る</strong></button></a>
-            </div>
+            <like-component endpoint="{{ route('like.send', ['user' => $user->id]) }}" 
+                            initial-like-status={{ Auth::user()->getLikeStatus($user) }} >
+            </like-component>
         </div>
         <div class="col-md-7">
             <table class="table">
