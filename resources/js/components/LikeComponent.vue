@@ -2,15 +2,15 @@
     <div class="w-100 text-center mb-4">
         <div v-if="this.likeStatus == 'received'">
             <form :action="this.endpoint" method="post">
-                <button type="submit" class="btn" :class="buttonColor">{{ buttonText }}</button>
+                <button type="submit" class="btn w-100 rounded-pill" :class="buttonColor">{{ buttonText }}</button>
                 <input type="hidden" name="_token" :value="this.csrf">
             </form>
         </div>
         <div v-if="this.likeStatus == 'matched'">
-            <a href='#'><button type="button" class="btn" :class="buttonColor">{{ buttonText }}</button></a>
+            <a href='#'><button type="button" class="btn w-100 rounded-pill" :class="buttonColor">{{ buttonText }}</button></a>
         </div>
         <div v-if="this.likeStatus == '' || this.likeStatus == 'sended'">
-            <button type="button" @click="clickLike" class="btn" :class="buttonColor">{{ buttonText }}</button>
+            <button type="button" @click="clickLike" class="btn w-100 rounded-pill" :class="buttonColor">{{ buttonText }}</button>
         </div>
     </div>
 </template>
