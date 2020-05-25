@@ -7,7 +7,7 @@
             </form>
         </div>
         <div v-if="this.likeStatus == 'matched'">
-            <a href='#'><button type="button" class="btn w-100 rounded-pill" :class="buttonColor">{{ buttonText }}</button></a>
+            <a :href="this.endpoint"><button type="button" class="btn w-100 rounded-pill" :class="buttonColor">{{ buttonText }}</button></a>
         </div>
         <div v-if="this.likeStatus == '' || this.likeStatus == 'sended'">
             <button type="button" @click="clickLike" class="btn w-100 rounded-pill" :class="buttonColor">{{ buttonText }}</button>
