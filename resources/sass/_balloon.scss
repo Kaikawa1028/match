@@ -1,0 +1,60 @@
+.balloon-left {
+    position: relative;
+    display: inline-block;
+    margin-left: -20px;
+    padding: 7px 10px;
+    min-width: 120px;
+    max-width: 100%;
+    color: #555;
+    font-size: 16px;
+    box-sizing: border-box;
+    background: #e0edff;
+    border-radius: 15px;
+  }
+  
+  .balloon-left:before {
+    content: "";
+    position: absolute;
+    top: 40%;
+    left: -4px;
+    transform: rotate(158deg);
+    margin-top: -12px;
+    border: 12px solid transparent;
+    border-right: 12px solid #e0edff;
+    z-index: 2;
+  }
+  
+  .balloon-left p {
+    margin: 0;
+    padding: 0;
+  }
+
+  .balloon-right {
+    position: relative;
+    margin-right: 20px;
+    display: inline-block;
+    padding: 7px 10px;
+    min-width: 120px;
+    max-width: 100%;
+    color: #555;
+    font-size: 16px;
+    box-sizing: border-box;
+    background: #e0edff;
+    border-radius: 15px;
+  }
+  
+  .balloon-right:before {
+    content: "";
+    position: absolute;
+    top: 40%;
+    right: -20px;
+    margin-top: -12px;
+    border: 12px solid transparent;
+    border-left: 12px solid #e0edff;
+    z-index: 2;
+  }
+  
+  .balloon-right p {
+    margin: 0;
+    padding: 0;
+  }
