@@ -44,7 +44,7 @@
                     </tr>
                     <tr>
                         <th scope="row">自己紹介</th>
-                        <td>@if ($result['user_profile'] === null) @else {{ $result['user_profile']->text }}@endif</td>
+                        <td>@if ($result['user_profile'] === null) @else {!! nl2br(e($result['user_profile']->text )) !!}@endif</td>
                     </tr>
                 </tbody>
             </table>

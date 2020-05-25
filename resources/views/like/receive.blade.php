@@ -38,7 +38,7 @@
                     </div>
                     <div class="mb-3">{{ $like->receive_user->user_profile->job ?? "未設定" }}</div>
                     <like-component 
-                        endpoint={{ route('like.send', ['user' => $like->receive_user->id]) }}
+                        endpoint=@if($like->status == "")) {{ route('like.send', ['user' => $like->receive_user->id]) }} @else {{ route('room.message', ['room' => $like->room_id]) }} @endif
                         initial-like-status=@if($like->status == "")'received' @else {{ $like->status }} @endif>
                     </like-component>
                 </div>

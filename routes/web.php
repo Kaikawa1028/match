@@ -26,6 +26,7 @@ Route::middleware('auth')->group( function() {
 
     Route::get('/room', 'RoomController@index')->name('room');
     Route::get('/room/{room}', 'RoomController@message')->name('room.message');
+    Route::post('/room/{room}', 'RoomController@send')->name('room.message.send');
 
     Route::get('/mypage', 'MypageController@index')->name('mypage');
     Route::get('/mypage/edit', 'MypageController@edit')->name('mypage.edit');

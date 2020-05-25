@@ -17,7 +17,7 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ mix('css/app.css') }}" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.11/css/mdb.min.css" rel="stylesheet">
 </head>
 <body>
@@ -36,7 +36,7 @@
                     <div class="navbar-nav">
                         <a class="nav-item nav-link" href="{{ route('user') }}">お相手を探す</a>
                         <a class="nav-item nav-link" href="{{ route('like.receive.list') }}">いいね</a>
-                        <a class="nav-item nav-link" href="#">メッセージ</a>
+                        <a class="nav-item nav-link" href="{{ route('room') }}">メッセージ</a>
                         <a class="nav-item nav-link" href="{{ route('mypage') }}">マイページ</a>
                     </div>
                     @endauth

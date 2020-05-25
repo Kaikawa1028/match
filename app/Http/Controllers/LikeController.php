@@ -37,8 +37,8 @@ class LikeController extends Controller
         $request->user()->send_like_user()->detach($user);
         $request->user()->send_like_user()->attach(
             $user,
-            ['created_at', $now],
-            ['updated_at', $now]
+            ['created_at' => $now],
+            ['updated_at' => $now]
         );
 
         return ['name' => $user->name];
