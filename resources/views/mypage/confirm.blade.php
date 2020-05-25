@@ -39,7 +39,7 @@
                         </tr>
                         <tr>
                             <th scope="row">自己紹介文</th>
-                            <td>{{ $result['text'] }}</td>
+                            <td>{!! nl2br(e($result['text'])) !!}</td>
                         </tr>
                     </tbody>
                 </table>
