@@ -39,7 +39,8 @@
     </div>
     <div class="fixed-bottom">
         <div class="row justify-content-center bg-light">
-            <div class="col-8 mt-4">
+            <div class="col-7 mt-4">
+                @can('paid-member')
                 <form action="{{ route('room.message.send', ['room' => $result['room_id']]) }}" method="post">
                     @csrf
                     <div class="form-group">
@@ -47,6 +48,12 @@
                     </div>
                     <button type="submit" class="btn btn-primary">メッセージを送る</button>
                 </form>
+                @elsecan('free-member')
+                <div class="mb-5">
+                    <p>有料会員のみメッセージを送ることができます。※サンプルアプリなので無料で有料会員になれます＾＾</p>
+                    <a href="{{ route('user.paid') }}"><button type="button" class="btn btn-default">有料会員になる</button></a>
+                </div>
+                @endcan
             </div>
         </div>
     </div>

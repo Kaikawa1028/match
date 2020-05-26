@@ -40,6 +40,13 @@ class UserRepository
             });
         }
 
+        if(array_key_exists('text', $data) && !is_null($data['text'])) {
+            $text = $data['text'];
+            $query->whereHas('user_profile', function($q) use ($text){
+                $q->where('text', 'like', '%'.$text.'%');
+            });
+        }
+
         $users = $query->paginate(12);
 
         return $users;

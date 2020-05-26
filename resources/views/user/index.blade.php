@@ -25,6 +25,13 @@
                             </select>
                         </div>
 
+                        @can('paid-member')
+                        <div class="form-group">
+                            <label for="text">フリーワード</label>
+                            <input type="text" id="text" name="text" class="form-control" placeholder="犬・料理好き　など">
+                        </div>
+                        @endcan
+
                         <button class="btn btn-default my-4 btn-block rounded" type="submit">検索</button>
                     </form>
                 </div>

@@ -8,14 +8,22 @@
                 <img class="card-img-top" src="{{ $result['user_profile']->img_url ?? 'https://matching-kou.s3.ap-northeast-1.amazonaws.com/3/TW2fauu9FNUFIYorYS8zqcSee1w2V6HPR36uJKOj.png' }}"  alt="写真なし"></img>
                 <div class="card-body">
                     <h4 class="card-title">
-                        ユーザ名
+                        @if ($result['user_profile'] === null) @else {{ $result['user_profile']->user_name }} @endif
                     </h4>
-                    <p class="h5"><strong>@if ($result['user_profile'] === null) @else {{ $result['user_profile']->user_name }} @endif</strong></p>
+                    @can('paid-member')
+                        <span class="badge badge-pill badge-warning">有料会員</span>
+                    @elsecan('free-member')
+                        <span class="badge badge-pill badge-info">無料会員</span>
+                    @endcan
                 </div>
             </div>
-            <div class="w-100 text-center mb-4">
-                <a href="{{ route('mypage.edit') }}"><button type="button" class="btn btn-default">ユーザ情報編集</button></a>
+            <div class="d-flex flex-row mb-4 justify-content-center">
+                <a href="{{ route('mypage.edit') }}"><button type="button" class="btn btn-default">編集</button></a>
+                @can('free-member')
+                <a href="{{ route('user.paid') }}"><button type="button" class="btn btn-default">有料会員へ</button></a>
+                @endcan
             </div>
+        
         </div>
         <div class="col-md-7">
             <table class="table mb-5">
