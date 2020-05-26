@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Service\UserService;
 use App\User;
 use App\Model\UserProfile;
+use Carbon\Carbon;
 
 class UserController extends Controller
 {
@@ -54,7 +55,10 @@ class UserController extends Controller
     public function complete()
     {
         $user = Auth::user();
+        $one_month_later = Carbon::now()->addMonth(1)->format('Y-m-d');
+
         $user->role = 5;
+        $user->role_deadline = $one_month_later;
         $user->save();
 
         return view('user.complete');
