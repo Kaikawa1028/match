@@ -4,6 +4,8 @@ namespace App\Repository;
 
 use App\User;
 use App\Model\UserProfile;
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class UserRepository
@@ -82,5 +84,16 @@ class UserRepository
     public function getUserProfile(string $user_id): ?UserProfile
     {
         return $this->user_profile->where('user_id', $user_id)->first();
+    }
+
+    /**
+     * 有料会員の期限が切れたユーザを取得する
+     * 
+     * @return Collection userのコレクション
+     */
+    public function getExpiredUser(): ?Collection
+    {   
+        $today = Carbon::now()->format('Y-m-d');
+        return $this->user->where('role', 5)->where('role_deadline', '<', $today)->get();
     }
 }

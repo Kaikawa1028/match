@@ -49,4 +49,19 @@ class UserService
 
         return $result;
     }
+
+    /**
+     * ユーザの有料会員の期限をチェックする。期限が切れている場合、無料会員に戻す。
+     *
+     */
+    public function checkUserDeadline(): void
+    {
+        $expired_users = $this->user_repository->getExpiredUser();
+
+        foreach($expired_users as $expired_user)
+        {
+            $expired_user->role = 10; //Todo マジックナンバーになってる。
+            $expired_user->save();
+        }
+    }
 }
