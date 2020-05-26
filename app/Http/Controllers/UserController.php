@@ -23,6 +23,7 @@ class UserController extends Controller
     public function index(Request $request)
     {
         $user = Auth::user();
+
         //男性か女性を判定
         $target_sex =  $user->sex == 1 ? 0 : 1;
         $result = $this->user_service->showUserList($target_sex, $request->all());
@@ -42,5 +43,19 @@ class UserController extends Controller
         return view('user.show')
                 ->with('user', $user)
                 ->with('result', $result);
+    }
+
+    public function paid()
+    {
+        return view('user.paid');
+    }
+
+    public function complete()
+    {
+        $user = Auth::user();
+        $user->role = 5;
+        $user->save();
+
+        return view('user.complete');
     }
 }
