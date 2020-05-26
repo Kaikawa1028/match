@@ -8,7 +8,7 @@ class UserProfile extends Model
 {
 
     protected $fillable = [
-        'user_name', 'age', 'residence', 'job','img_url', 'text'
+        'user_name', 'age', 'height', 'residence', 'job','img_url', 'text'
     ]; 
 
     public function user()
