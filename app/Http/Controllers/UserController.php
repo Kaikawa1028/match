@@ -29,6 +29,7 @@ class UserController extends Controller
         $result = $this->user_service->showUserList($target_sex, $request->all());
 
         return view('user.index')
+                ->with('request', $request)
                 ->with('result', $result);
 
     }
