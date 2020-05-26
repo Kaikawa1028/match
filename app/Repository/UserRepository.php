@@ -26,10 +26,31 @@ class UserRepository
         $query = $this->user->query()->with('user_profile');
         $query->where('sex', $target_sex);
 
-        if(array_key_exists('age', $data) && !is_null($data['age'])) {
-            $age = $data['age'];
-            $query->whereHas('user_profile', function($q) use ($age){
-                $q->where('age', $age);
+        if(array_key_exists('age_higher', $data) && !is_null($data['age_higher'])) {
+            $age_higher = $data['age_higher'];
+            $query->whereHas('user_profile', function($q) use ($age_higher){
+                $q->where('age', '>=', $age_higher);
+            });
+        }
+
+        if(array_key_exists('age_lower', $data) && !is_null($data['age_lower'])) {
+            $age_lower = $data['age_lower'];
+            $query->whereHas('user_profile', function($q) use ($age_lower){
+                $q->where('age', '<=', $age_lower);
+            });
+        }
+
+        if(array_key_exists('height_higher', $data) && !is_null($data['height_higher'])) {
+            $height_higher = $data['height_higher'];
+            $query->whereHas('user_profile', function($q) use ($height_higher){
+                $q->where('height', '>=', $height_higher);
+            });
+        }
+
+        if(array_key_exists('height_lower', $data) && !is_null($data['height_lower'])) {
+            $height_lower = $data['height_lower'];
+            $query->whereHas('user_profile', function($q) use ($height_lower){
+                $q->where('height', '<=', $height_lower);
             });
         }
 
