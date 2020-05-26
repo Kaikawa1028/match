@@ -17,6 +17,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::middleware('auth')->group( function() {
     Route::get('/', 'UserController@index')->name('user');
+    Route::get('/paid', 'UserController@paid')->name('user.paid');
+    Route::get('/paid/complete', 'UserController@complete')->name('user.paid.complete');
     Route::get('/user/{user}', 'UserController@show')->name('user.show');
     Route::put('/like/{user}', 'LikeController@send')->name('like.send');
     Route::delete('/like/{user}', 'LikeController@delete')->name('like.delete');
