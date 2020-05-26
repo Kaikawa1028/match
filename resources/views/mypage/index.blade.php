@@ -61,6 +61,10 @@
                         <td>@if ($result['user_profile'] === null) @else {{ $result['user_profile']->age }} @endif</td>
                     </tr>
                     <tr>
+                        <th scope="row">身長</th>
+                        <td>@if ($result['user_profile'] === null) @else {{ $result['user_profile']->height }} @endif</td>
+                    </tr>
+                    <tr>
                         <th scope="row">居住地</th>
                         <td>@if ($result['user_profile'] === null) @else {{ $result['user_profile']->residence }}@endif</td>
                     </tr>

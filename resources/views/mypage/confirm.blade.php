@@ -26,6 +26,10 @@
                             <td>{{ $result['age'] }}</td>
                         </tr>
                         <tr>
+                            <th scope="row">身長</th>
+                            <td>{{ $result['height'] }}</td>
+                        </tr>
+                        <tr>
                             <th scope="row">居住地</th>
                             <td>{{ $result['residence'] }}</td>
                         </tr>
@@ -46,6 +50,7 @@
 
                 <input type="hidden" id="user_name" name="user_name" value="{{ $result['user_name'] }}" class="form-control">
                 <input type="hidden" id="age" name="age" value="{{ $result['age'] }}" class="form-control">
+                <input type="hidden" id="age" name="height" value="{{ $result['height'] }}" class="form-control">
                 <input type="hidden" id="residence" name="residence" value="{{ $result['residence'] }}" class="form-control">
                 <input type="hidden" id="job" name="job" value="{{ $result['job'] }}" class="form-control">
                 <input type="hidden" id="img_data" name="img_data" value="{{ $result['img_data'] }}" class="form-control">

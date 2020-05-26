@@ -33,6 +33,17 @@
                 </div>
 
                 <div class="form-group">
+                    <label for="height">身長</label>
+                    <span class="badge badge-primary">必須</span>
+                    <div class="w-25">
+                        <select id="height" name="height" class="form-control @error('height') is-invalid @enderror">
+                            <option value="165" @if(old("height")) @if(old("height") == 165) selected @else @endif @else @if(!is_null($result['user_profile']) && $result['user_profile']->height == "165") selected @else   @endif @endif>165cm</option>
+                            <option value="170" @if(old("height")) @if(old("height") == 170) selected @else @endif @else @if(!is_null($result['user_profile']) && $result['user_profile']->height == "170") selected @else   @endif @endif>170cm</option>
+                        </select> 
+                    </div>
+                </div>
+
+                <div class="form-group">
                     <label for="residence">居住地</label>
                     <span class="badge badge-primary">必須</span>
                     <div class="w-25">

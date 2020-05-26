@@ -28,11 +28,15 @@
                 <tbody>
                     <tr>
                         <th scope="row">性別</th>
-                        <td>@if ($result['user_profile'] === null) @else @if ($result['user_profile']->sex === 1) 男 @else 女 @endif @endif</td>
+                        <td>@if ($result['user_profile'] === null) @else @if ($result['user_profile']->sex == 1) 男 @else 女 @endif @endif</td>
                     </tr>
                     <tr>
                         <th scope="row">年齢</th>
                         <td>@if ($result['user_profile'] === null) @else {{ $result['user_profile']->age }} @endif</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">身長</th>
+                        <td>@if ($result['user_profile'] === null) @else {{ $result['user_profile']->height }} @endif</td>
                     </tr>
                     <tr>
                         <th scope="row">居住地</th>
