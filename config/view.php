@@ -33,4 +33,8 @@ return [
         realpath(storage_path('framework/views'))
     ),
 
+    /**
+     * uesrのデフォルト画像
+     */
+    'default_img' => 'https://matching-kou.s3-ap-northeast-1.amazonaws.com/default-user-image.png',
 ];
