@@ -21,7 +21,7 @@
         </div>
     </div>
     <div class="row">
-        @foreach($likes as $like)
+        @foreach($result['likes'] as $like)
         <div class="col-md-6 mb-4 border-bottom @if($loop->index % 2 == 0) border-right @endif">
             <div class="row">
                 <div class="col-4">

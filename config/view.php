@@ -37,4 +37,9 @@ return [
      * uesrのデフォルト画像
      */
     'default_img' => 'https://matching-kou.s3-ap-northeast-1.amazonaws.com/default-user-image.png',
+
+    'user_role' => [
+        'paid-member' => 5,
+        'free-member' => 10,
+    ],
 ];

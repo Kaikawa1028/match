@@ -47,19 +47,21 @@ class UserController extends Controller
                 ->with('result', $result);
     }
 
+    /**
+     * 有料会員登録画面の表示
+     */
     public function paid()
     {
         return view('user.paid');
     }
 
+    /**
+     * 有料会員登録完了の表示
+     */
     public function complete()
     {
         $user = Auth::user();
-        $one_month_later = Carbon::now()->addMonth(1)->format('Y-m-d');
-
-        $user->role = 5;
-        $user->role_deadline = $one_month_later;
-        $user->save();
+        $this->user_service->savePaidUser($user);
 
         return view('user.complete');
     }

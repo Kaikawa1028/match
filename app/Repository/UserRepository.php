@@ -96,4 +96,14 @@ class UserRepository
         $today = Carbon::now()->format('Y-m-d');
         return $this->user->where('role', 5)->where('role_deadline', '<', $today)->get();
     }
+
+    /**
+     * ユーザを登録する
+     * 
+     * @param User $user
+     */
+    public function saveUser($user): void
+    {
+        $user->save();
+    }
 }
