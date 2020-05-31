@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-7 col-md-3">
             <div class="card mb-4">
-                <img class="card-img-top" src="{{ $result['user_profile']->img_url ?? 'https://matching-kou.s3.ap-northeast-1.amazonaws.com/3/TW2fauu9FNUFIYorYS8zqcSee1w2V6HPR36uJKOj.png' }}"  alt="写真なし"></img>
+                <img class="card-img-top" src="{{ $result['user_profile']->img_url ?? config('view.default_img') }}"  alt="写真なし"></img>
                 <div class="card-body">
                     <h4 class="card-title">
                         @if ($result['user_profile'] === null) @else {{ $result['user_profile']->user_name }} @endif

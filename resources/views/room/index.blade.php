@@ -22,11 +22,12 @@
                         </div>
                     </div>
                     <div>@if(is_null($room->messages->last())) まだメッセージを交換していません。  @else {{ $room->messages->last()->getLastText()}} @endif</div>
+                    <a href="{{ route('room.message', ['room' => $room->id]) }}" class="stretched-link"><p class="card-text"></a>
                 </div>
                 @else
                 <div class="col-3 col-md-2">
                     <a href="{{ route('user.show', ['user' => $room->man_user->id] ) }}">
-                        <img class="rounded-circle w-100" src="{{ $room->man_user->user_profile->img_url ?? 'https://matching-kou.s3.ap-northeast-1.amazonaws.com/3/TW2fauu9FNUFIYorYS8zqcSee1w2V6HPR36uJKOj.png' }}"  alt="写真なし"></img>
+                        <img class="rounded-circle w-100" src="{{ $room->man_user->user_profile->img_url ?? config('view.default_img') }}"  alt="写真なし"></img>
                     </a>
                 </div>
                 <div class="col-9 col-md-10">

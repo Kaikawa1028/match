@@ -5,12 +5,16 @@
     <div class="row justify-content-center">
         <div class="col-7 col-md-3">
             <div class="card mb-4">
-                <img class="card-img-top" src="{{ $result['user_profile']->img_url ?? 'https://matching-kou.s3.ap-northeast-1.amazonaws.com/3/TW2fauu9FNUFIYorYS8zqcSee1w2V6HPR36uJKOj.png' }}"  alt="写真なし"></img>
+                <img class="card-img-top" src="{{ $result['user_profile']->img_url ?? config('view.default_img') }}"  alt="写真なし"></img>
                 <div class="card-body">
-                    <h4 class="card-title">
-                        ユーザ名
-                    </h4>
-                    <p class="h5"><strong>@if ($result['user_profile'] === null) @else {{ $result['user_profile']->user_name }} @endif</strong></p>
+                    <h3 class="card-title">
+                        @if ($result['user_profile'] === null) @else {{ $result['user_profile']->user_name }} @endif
+                    </h3>
+                    @if($user->role == 5)
+                        <span class="badge badge-pill badge-warning">有料会員</span>
+                    @elseif($user->role == 10)
+                        <span class="badge badge-pill badge-info">無料会員</span>
+                    @endif
                 </div>
             </div>
             <like-component endpoint="{{ route('like.send', ['user' => $user->id]) }}" 
@@ -28,7 +32,7 @@
                 <tbody>
                     <tr>
                         <th scope="row">性別</th>
-                        <td>@if ($result['user_profile'] === null) @else @if ($result['user_profile']->sex == 1) 男 @else 女 @endif @endif</td>
+                        <td>@if ($result['user_profile'] === null) @else @if ($user->sex == 1) 男 @else 女 @endif @endif</td>
                     </tr>
                     <tr>
                         <th scope="row">年齢</th>

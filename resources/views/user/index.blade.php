@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-3 mb-4">
+        <div class="col-lg-3 mb-4">
             <div class="card">
                 <div class="card-body">
                     <form action="{{ route('user') }}" method="get">
@@ -74,12 +74,12 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-8">
+        <div class="col-lg-9">
             <div class="row">
             @foreach($result['users'] as $user)
                 <div class="col-6 col-md-4 col-lg-3  mb-4">
                     <div class="card">
-                        <img class="card-img-top" src="{{ $user->user_profile->img_url ?? 'https://matching-kou.s3.ap-northeast-1.amazonaws.com/3/TW2fauu9FNUFIYorYS8zqcSee1w2V6HPR36uJKOj.png' }}"  alt="写真なし"></img>
+                        <img class="card-img-top" src="{{ $user->user_profile->img_url ?? config('view.default_img') }}"  alt="写真なし"></img>
                         <div class="card-body">
                             <h6 class="card-title">{{$user->user_profile->user_name ?? '未設定'}}</h4>
                             <a href="{{ route('user.show', ['user' => $user->id ]) }}" class="stretched-link"><p class="card-text">{{ $user->user_profile->age ?? '未設定' }}  {{ $user->user_profile->residence ?? '' }}</p></a>
