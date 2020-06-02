@@ -39,6 +39,15 @@ class LikesTableSeeder extends Seeder
                 'created_at'        => '2020-04-24 15:31:45',
                 'updated_at'        => '2020-04-24 15:31:45'
             ],
+            3 => [
+                'id'                => 4,
+                'from_user_id'      => 31,
+                'to_user_id'        => 1,
+                'status'            => '',
+                'room_id'           => null,
+                'created_at'        => '2020-04-24 15:31:45',
+                'updated_at'        => '2020-04-24 15:31:45'
+            ],
         ]);
     }
 }
