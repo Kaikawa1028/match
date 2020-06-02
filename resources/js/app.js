@@ -17,6 +17,7 @@
 import './bootstrap'
 import Vue from 'vue'
 import VueCropperComponent from './components/VueCropperComponent'
+import LikeComponent from './components/LikeComponent'
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -28,5 +29,6 @@ const app = new Vue({
     el: '#app',
     components: {
         VueCropperComponent,
+        LikeComponent,
     }
 });
