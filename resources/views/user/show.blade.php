@@ -17,7 +17,7 @@
                     @endif
                 </div>
             </div>
-            <like-component endpoint="{{ route('like.send', ['user' => $user->id]) }}" 
+            <like-component endpoint=@if($result['like']->status == "") {{ route('like.send', ['user' => $user->id]) }} @else {{ route('room.message', ['room' => $result['like']->room_id]) }} @endif 
                             initial-like-status={{ Auth::user()->getLikeStatus($user) }} >
             </like-component>
         </div>
