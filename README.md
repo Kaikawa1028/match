@@ -34,6 +34,20 @@ $ make ps
 
 URL: http://localhost:80
 
+- テストユーザー
+
+```
+男性
+ID: test@gmail.com
+pass: password
+```
+
+```
+女性
+ID: test-w@gmail.com
+pass: password
+```
+
 ## How to
 
 -   コンテナの状態を確認する
