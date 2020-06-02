@@ -4,6 +4,8 @@ namespace App\Repository;
 
 use App\User;
 use App\Model\UserProfile;
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class UserRepository
@@ -26,10 +28,31 @@ class UserRepository
         $query = $this->user->query()->with('user_profile');
         $query->where('sex', $target_sex);
 
-        if(array_key_exists('age', $data) && !is_null($data['age'])) {
-            $age = $data['age'];
-            $query->whereHas('user_profile', function($q) use ($age){
-                $q->where('age', $age);
+        if(array_key_exists('age_higher', $data) && !is_null($data['age_higher'])) {
+            $age_higher = $data['age_higher'];
+            $query->whereHas('user_profile', function($q) use ($age_higher){
+                $q->where('age', '>=', $age_higher);
+            });
+        }
+
+        if(array_key_exists('age_lower', $data) && !is_null($data['age_lower'])) {
+            $age_lower = $data['age_lower'];
+            $query->whereHas('user_profile', function($q) use ($age_lower){
+                $q->where('age', '<=', $age_lower);
+            });
+        }
+
+        if(array_key_exists('height_higher', $data) && !is_null($data['height_higher'])) {
+            $height_higher = $data['height_higher'];
+            $query->whereHas('user_profile', function($q) use ($height_higher){
+                $q->where('height', '>=', $height_higher);
+            });
+        }
+
+        if(array_key_exists('height_lower', $data) && !is_null($data['height_lower'])) {
+            $height_lower = $data['height_lower'];
+            $query->whereHas('user_profile', function($q) use ($height_lower){
+                $q->where('height', '<=', $height_lower);
             });
         }
 
@@ -61,5 +84,26 @@ class UserRepository
     public function getUserProfile(string $user_id): ?UserProfile
     {
         return $this->user_profile->where('user_id', $user_id)->first();
+    }
+
+    /**
+     * 有料会員の期限が切れたユーザを取得する
+     * 
+     * @return Collection userのコレクション
+     */
+    public function getExpiredUser(): ?Collection
+    {   
+        $today = Carbon::now()->format('Y-m-d');
+        return $this->user->where('role', 5)->where('role_deadline', '<', $today)->get();
+    }
+
+    /**
+     * ユーザを登録する
+     * 
+     * @param User $user
+     */
+    public function saveUser($user): void
+    {
+        $user->save();
     }
 }

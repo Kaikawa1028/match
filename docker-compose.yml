@@ -30,7 +30,7 @@ services:
     container_name: match_redis
     hostname: redis
     ports:
-      - "5432:5432"
+      - "6379:6379"
 
   # elasticsearch:
   #   image: elasticsearch:5.5

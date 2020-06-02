@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-7 col-md-3">
             <div class="card mb-4">
-                <img class="card-img-top" src="{{ $result['user_profile']->img_url ?? 'https://matching-kou.s3.ap-northeast-1.amazonaws.com/3/TW2fauu9FNUFIYorYS8zqcSee1w2V6HPR36uJKOj.png' }}"  alt="写真なし"></img>
+                <img class="card-img-top" src="{{ $result['user_profile']->img_url ?? config('view.default_img') }}"  alt="写真なし"></img>
                 <div class="card-body">
                     <h4 class="card-title">
                         @if ($result['user_profile'] === null) @else {{ $result['user_profile']->user_name }} @endif
@@ -17,13 +17,18 @@
                     @endcan
                 </div>
             </div>
-            <div class="d-flex flex-row mb-4 justify-content-center">
-                <a href="{{ route('mypage.edit') }}"><button type="button" class="btn btn-default">編集</button></a>
+            <div class="row justify-content-center mb-3">
+                <div class="col-md-10">
+                    <a href="{{ route('mypage.edit') }}"><button type="button" class="btn btn-default w-100">プロフィール編集へ</button></a>
+                </div>
+            </div>
+            <div class="row justify-content-center">
                 @can('free-member')
-                <a href="{{ route('user.paid') }}"><button type="button" class="btn btn-default">有料会員へ</button></a>
+                <div class="col-md-10">
+                    <a href="{{ route('user.paid') }}"><button type="button" class="btn btn-default w-100">有料会員へ</button></a>
+                </div>
                 @endcan
             </div>
-        
         </div>
         <div class="col-md-7">
             <table class="table mb-5">
@@ -59,6 +64,10 @@
                     <tr>
                         <th scope="row">年齢</th>
                         <td>@if ($result['user_profile'] === null) @else {{ $result['user_profile']->age }} @endif</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">身長</th>
+                        <td>@if ($result['user_profile'] === null) @else {{ $result['user_profile']->height }} @endif</td>
                     </tr>
                     <tr>
                         <th scope="row">居住地</th>

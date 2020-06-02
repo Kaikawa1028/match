@@ -9,7 +9,7 @@
                 <div class="row mb-4">
                     <div class="col-4 col-md-2">
                         <a href="#" class="text-dark">
-                            <img class="rounded-circle w-75" src="{{ $message->from_user->user_profile->img_url ?? 'https://matching-kou.s3.ap-northeast-1.amazonaws.com/3/TW2fauu9FNUFIYorYS8zqcSee1w2V6HPR36uJKOj.png' }}"  alt="写真なし"></img>
+                            <img class="rounded-circle w-75" src="{{ $message->from_user->user_profile->img_url ?? config('view.default_img') }}"  alt="写真なし"></img>
                         </a>
                     </div>
                     <div class="col-8">

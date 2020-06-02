@@ -26,6 +26,7 @@ class UserProfileRequest extends FormRequest
         return [
             'user_name' => 'required',
             'age' => 'required',
+            'height' => 'required',
             'residence' => 'required',
             'job' => 'required',
             'text' => 'min:5,max:1000',
@@ -37,6 +38,7 @@ class UserProfileRequest extends FormRequest
         return [
             'user_name' => 'ユーザ名',
             'age'       => '年齢',
+            'hegiht'    => '身長',
             'residence' => '居住地',
             'job'       => '職業',
             'text'      => '自己紹介文',

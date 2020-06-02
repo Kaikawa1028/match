@@ -32,9 +32,9 @@ class UserServiceTest extends TestCase
      */
     public function testShowUserList()
     {
-        $target_sex = 0;
+        $target_sex = 1;
         $data = [
-            "age" => "25",
+            "age_higher" => "25",
             "residence" => null
         ];
 

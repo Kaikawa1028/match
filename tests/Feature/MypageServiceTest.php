@@ -44,6 +44,7 @@ class MypageServiceTest extends TestCase
          $data = [
             "user_name" => "コウ",
             "age"       => "24",
+            "height"    => "170",
             "residence" => "京都府",
             "job"       => "商社",
             "img_data"  => "base64:png~",
@@ -54,7 +55,8 @@ class MypageServiceTest extends TestCase
 
          $correct_result = [
             "user_name" => "",
-            "age"       => "24",
+            "age"       => "",
+            "height"    => "",
             "residence" => "京都府",
             "job"       => "",
             "img_data"  => "base64:png~",
@@ -73,6 +75,7 @@ class MypageServiceTest extends TestCase
         $data = [
             "user_name" => "メイ",
             "age"       => "27",
+            "height"    => "160",
             "residence" => "大阪府",
             "job"       => "商社",
             "img_data"  => "base64:png~",

@@ -8,73 +8,69 @@ use Carbon\Carbon;
 use App\Model\Like;
 use App\Model\Room;
 use Illuminate\Support\Facades\Auth;
+use App\Service\LikeService;
 
 class LikeController extends Controller
 {
+    private $like_service;
 
+    public function __construct(LikeService $like_service)
+    {
+        $this->like_service = $like_service;
+    }
+
+    /**
+     * いいねをもらったユーザの表示
+     */
     public function receiveList()
     {
         $user  = Auth::user();
-        $likes = Like::with('receive_user.user_profile')->where('to_user_id', $user->id)->get();
+        $result = $this->like_service->showRecieveUser($user->id);
 
         return view('like.receive')
-                ->with('likes', $likes);
+                ->with('result', $result);
     }
 
+    /**
+     * いいねを送ったユーザの表示
+     */
     public function sendList()
     {
         $user  = Auth::user();
-        $likes = Like::with('send_user.user_profile')->where('from_user_id', $user->id)->get();
+        $result = $this->like_service->showSendUser($user->id);
 
         return view('like.send')
-                ->with('likes', $likes);
+                ->with('result', $result);
     }
 
+    /**
+     * いいねを送る。
+     */
     public function send(Request $request, User $user)
     {
-        $now = Carbon::now()->format('Y-m-d H:i:s');
+        $this->like_service->sendLike($request->user(), $user);
 
-        $request->user()->send_like_user()->detach($user);
-        $request->user()->send_like_user()->attach(
-            $user,
-            ['created_at' => $now],
-            ['updated_at' => $now]
-        );
-
-        return ['name' => $user->name];
+        return ['success' => $user->name.'にいいねを送りました。'];
     }
 
+    /**
+     * いいねを取り消す。
+     */
     public function delete(Request $request, User $user)
     {
-        $request->user()->send_like_user()->detach($user);
+        $this->like_service->sendUnLike($request->user(), $user);
 
-        return ['name' => $user->name];
+        return ['success' => $user->name.'へのいいねを取り消しました。'];
     }
 
+    /**
+     * いいねを返す。
+     */
     public function receive(Request $request, User $user)
     {
         $auth_user = $request->user();
-        $like = Like::where('from_user_id', $user->id)->where('to_user_id', $auth_user->id)->first();
+        $result = $this->like_service->receiveLike($user, $auth_user);
 
-        $like->status = "matched";
-    
-        $room = new Room();
-
-        if($auth_user->sex == 1) {
-            $room_id = $room->create([
-                'man_user_id'    => $like->to_user_id,
-                'woman_user_id'  => $like->from_user_id 
-            ])->id;
-        } else {
-            $room_id = $room->create([
-                'man_user_id'    => $like->from_user_id,
-                'woman_user_id'  => $like->to_user_id 
-            ])->id;
-        }
-
-        $like->room_id = $room_id;
-        $like->save();
-
-        return redirect()->route('room.message', ['room' => $room_id]);
+        return redirect()->route('room.message', ['room' => $result['room_id']]);
     }
 }

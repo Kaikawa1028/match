@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Service\UserService;
 use App\User;
 use App\Model\UserProfile;
+use Carbon\Carbon;
 
 class UserController extends Controller
 {
@@ -29,6 +30,7 @@ class UserController extends Controller
         $result = $this->user_service->showUserList($target_sex, $request->all());
 
         return view('user.index')
+                ->with('request', $request)
                 ->with('result', $result);
 
     }
@@ -45,16 +47,21 @@ class UserController extends Controller
                 ->with('result', $result);
     }
 
+    /**
+     * 有料会員登録画面の表示
+     */
     public function paid()
     {
         return view('user.paid');
     }
 
+    /**
+     * 有料会員登録完了の表示
+     */
     public function complete()
     {
         $user = Auth::user();
-        $user->role = 5;
-        $user->save();
+        $this->user_service->savePaidUser($user);
 
         return view('user.complete');
     }

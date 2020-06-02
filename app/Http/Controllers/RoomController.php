@@ -3,56 +3,52 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Model\Room;
-use App\Model\Message;
 use Illuminate\Support\Facades\Auth;
+use App\Service\RoomService;
+use App\Model\Room;
 
 class RoomController extends Controller
 {
+    private $room_service;
+
+    public function __construct(RoomService $room_service)
+    {
+        $this->room_service = $room_service;
+    }
+
+    /**
+     * トークルームの表示
+     */
     public function index()
     {
         $user = Auth::user();
-
-        if($user->sex == 1) {
-            $rooms = Room::with(['woman_user.user_profile', 'messages'])->where('man_user_id', $user->id)->get();
-        }else {
-            $rooms = Room::with(['man_user.user_profile', 'messages'])->where('woman_user_id', $user->id)->get();
-        }
-
-        $result = [
-            "rooms" => $rooms            
-        ];
+        $result = $this->room_service->showRoom($user);
 
         return view('room.index')
                 ->with('user', $user)
                 ->with('result', $result);
     }
 
+    /**
+     * メッセージ画面の表示
+     */
     public function message(Room $room)
     {
         $user = Auth::user();
-        $messages = Message::with('from_user.user_profile')->where('room_id', $room->id)->get();
-
-        $result = [
-            'messages' => $messages,
-            'room_id'  => $room->id
-        ];
+        $result = $this->room_service->showMessage($room->id);
 
         return view('room.message')
                 ->with('user', $user)
                 ->with('result', $result);
     }
 
+    /**
+     * メッセージを送る
+     */
     public function send(Request $request, Room $room)
     {
         $user = $request->user();
-
-        $message = new Message();
-        $message->room_id = $room->id;
-        $message->from_user_id = $user->id;
-        $message->text = $request->text;
-
-        $message->save();
+        $this->room_service->sendMessage($room->id, $user->id, $request->text);
 
         return redirect()->route('room.message', ['room' => $room->id]);
     }
