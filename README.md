@@ -6,12 +6,10 @@
 
 ## 環境
 
--   Laravel 6.0
+-   Laravel 6.18
 -   MySQL 5.7
 -   Redis 5.0.4
 -   Docker 18.09.6
--   docker-compose 1.23.2
--   node.js (asset ビルド用) 10.16
 
 ## Installation
 -   clone
