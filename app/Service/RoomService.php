@@ -47,7 +47,7 @@ class RoomService
         $messages = $this->room_repository->getMessages($room_id);
 
         $result = [
-            "message" => $messages,
+            "messages" => $messages,
             'room_id' => $room_id
         ];
 

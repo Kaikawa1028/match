@@ -48,7 +48,7 @@ class LikeRepository
         $now = Carbon::now()->format('Y-m-d H:i:s');
 
         $from_user->send_like_user()->detach($to_user);
-        $from_user->user()->send_like_user()->attach(
+        $from_user->send_like_user()->attach(
             $to_user,
             ['created_at' => $now],
             ['updated_at' => $now]
