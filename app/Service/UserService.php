@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use App\Repository\UserRepository;
+use App\Repository\LikeRepository;
 use App\Repository\Contract\ImageFileRepository;
 use App\User;
 use Carbon\Carbon;
@@ -10,10 +11,12 @@ use Carbon\Carbon;
 class UserService
 {
     private $user_repository;
+    private $like_repository;
 
-    public function __construct(UserRepository $user_repository)
+    public function __construct(UserRepository $user_repository, LikeRepository $like_repository)
     {
         $this->user_repository = $user_repository;
+        $this->like_repository = $like_repository;
     }
 
     /**
@@ -37,15 +40,22 @@ class UserService
     /**
      * ユーザ詳細を表示する。
      * 
-     * @param string $user_id ユーザID
+     * @param string $user_id 対象ユーザのID
+     * @param string $auth_user_id ログインユーザのID
      * @return array $result プロフィール情報
      */
-    public function showUser(string $user_id): array
+    public function showUser(string $user_id, string $auth_user_id): array
     {
         $user_profile = $this->user_repository->getUserProfile($user_id);
 
+        $like = $this->like_repository->getLike($user_id, $auth_user_id);
+        if(empty($like)) {
+            $like = $this->like_repository->getLike($auth_user_id, $user_id);
+        }
+
         $result = [
-            'user_profile' => $user_profile
+            'user_profile' => $user_profile,
+            'like' => $like
         ];
 
         return $result;

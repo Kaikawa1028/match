@@ -74,7 +74,7 @@ class LikeRepository
      * @param string $to_user_id いいねを受け取ったユーザID
      * @return Like 対象のいいね
      */
-    public function getLike(string $from_user_id, string $to_user_id): Like
+    public function getLike(string $from_user_id, string $to_user_id): ?Like
     {
         return  $this->like->where('from_user_id', $from_user_id)->where('to_user_id', $to_user_id)->first();
     }

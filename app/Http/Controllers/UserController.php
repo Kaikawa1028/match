@@ -40,7 +40,8 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        $result = $this->user_service->showUser($user->id);
+        $auth_user = Auth::user();
+        $result = $this->user_service->showUser($user->id, $auth_user->id);
 
         return view('user.show')
                 ->with('user', $user)
