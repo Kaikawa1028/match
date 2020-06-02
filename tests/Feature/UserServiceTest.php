@@ -49,7 +49,9 @@ class UserServiceTest extends TestCase
      */
     public function testShowUser()
     {
-        $result = $this->user_service->showUser(1);
+        $user_id = 1;
+        $auth_user_id = 2;
+        $result = $this->user_service->showUser($user_id, $auth_user_id);
         
         $this->assertEquals($result['user_profile']->user_name, 'コウ');
     }
