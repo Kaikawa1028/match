@@ -32,7 +32,7 @@ seed: ## Test all assertions : ## make db:seed
 
 .PHONY: test
 test: ## Test all assertions : ## make test
-	docker exec -it $(PROJECT)-app ./vendor/bin/phpunit
+	docker exec -it $(PROJECT)_app ./vendor/bin/phpunit
 
 .PHONY: ps
 ps: ## Test all assertions : ## make ps
