@@ -97,7 +97,7 @@ jobs:
             EOF
       - aws-ecr/build-and-push-image:
           checkout: false
-          repo: "sample-project-app-development"
+          repo: "match-project-app-development"
           tag: "${CIRCLE_SHA1}"
           dockerfile: Dockerfile
           account-url: AWS_ECR_ACCOUNT_URL
