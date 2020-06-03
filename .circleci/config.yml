@@ -1,0 +1,204 @@
+version: 2.1
+orbs:
+  aws-ecr: circleci/aws-ecr@3.1.0
+  aws-ecs: circleci/aws-ecs@1.0.1
+  aws-s3: circleci/aws-s3@1.0.11
+  aws-cli: circleci/aws-cli@0.1.13
+jobs:
+  checkout:
+    docker:
+      - image: circleci/python:3-stretch-browsers
+    steps:
+      - checkout:
+          path: ~/match-project
+      - persist_to_workspace:
+          root: ~/match-project
+          paths:
+            - .
+
+  build_and_test:
+    docker:
+      - image: php:7.4-fpm-alpine
+      - image: circleci/mysql:5.7
+        environment:
+          MYSQL_DATABASE: test
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_ROOT_HOST: "%"
+      - image: circleci/redis:5.0-alpine
+
+    environment:
+      - APP_ENV: testing
+      - APP_DEBUG: true
+      - APP_KEY: base64:hhkpZsWp2dlASp5D7nJ7ChnxwmsJPxFgndWb/WyVtkA=
+      - DB_CONNECTION: mysql
+      - DB_HOST: 127.0.0.1
+      - DB_PORT: 3306
+      - DB_USERNAME: root
+      - DB_PASSWORD: root
+      - DB_DATABASE: test
+      - REDIS_HOST: 127.0.0.1
+
+    working_directory: ~/match-project
+
+    steps:
+      # testing
+      - attach_workspace:
+          at: ~/match-project
+      - restore_cache:
+          keys:
+            - v1-composer-{{ checksum "composer.json" }}
+            - v1-composer-
+      - run: apk --update --no-cache add curl libzip-dev libpng-dev
+      - run: rm -rf /var/cache/apk/*
+      - run: docker-php-ext-install pdo_mysql
+      - run: docker-php-ext-install bcmath
+      - run: docker-php-ext-install zip
+      - run: docker-php-ext-install opcache
+      - run: docker-php-ext-install gd
+      - run: curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer
+      - run: composer global require hirak/prestissimo
+      - run: composer install -n --prefer-dist
+      - run: apk add git
+      - run: git clone https://github.com/phpredis/phpredis.git /usr/src/php/ext/redis
+      - run: docker-php-ext-install redis
+      - save_cache:
+          paths:
+            - ./vendor
+          key: v1-composer-{{ checksum "composer.json" }}
+      - run: apk --update --no-cache add nodejs nodejs-npm alpine-sdk
+      - run: npm install
+      - run: npm run production
+      - run: php artisan migrate
+      - run: php artisan db:seed
+      - run:
+          name: Run phpunit
+          command: |
+            php ./vendor/bin/phpunit
+      - persist_to_workspace:
+          root: ~/match-project
+          paths:
+            - .
+
+
+  push_image_test_project_develop:
+    docker:
+      - image: circleci/python:3-stretch-browsers
+    working_directory: ~/match-project
+    steps:
+      - attach_workspace:
+          at: ~/match-project
+      - setup_remote_docker
+      - run:
+          name: create .env
+          command: |
+            cat \<<EOF > .env
+              AWS_S3_ACCESS_KEY_ID=${AWS_S3_ACCESS_KEY_ID}
+              AWS_S3_SECRET_ACCESS_KEY_ID=${AWS_S3_SECRET_ACCESS_KEY_ID}
+            EOF
+      - aws-ecr/build-and-push-image:
+          checkout: false
+          repo: "sample-project-app-development"
+          tag: "${CIRCLE_SHA1}"
+          dockerfile: Dockerfile
+          account-url: AWS_ECR_ACCOUNT_URL
+          aws-access-key-id: AWS_ACCESS_KEY_ID
+          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+          region: AWS_REGION
+      - run:
+          name: add latest tag
+          command: |
+            docker tag \
+              ${AWS_ECR_ACCOUNT_URL}/sample-project-app-development:${CIRCLE_SHA1} \
+              ${AWS_ECR_ACCOUNT_URL}/sample-project-app-development:latest
+      - aws-ecr/push-image:
+          repo: "match-project-app-development"
+          tag: "latest"
+
+  deploy_web_assets_to_s3_develop:
+    docker:
+      #      - image: circleci/python:2.7
+      - image: circleci/node:10
+    working_directory: ~/match-project
+    parameters:
+      bucket:
+        type: string
+        default: ""
+    steps:
+      - attach_workspace:
+          at: ~/match-project
+      - aws-s3/sync:
+          from: ./public
+          to: "s3://match-project.dev.assets/"
+          overwrite: true
+
+  deploy_develop:
+    docker:
+      - image: circleci/python:2.7
+    working_directory: ~/match-project/.circleci/task-definitions/dev
+    steps:
+      - aws-cli/install
+      - attach_workspace:
+          at: ~/match-project
+      - run:
+          name: Load Task Definition File
+          command: |
+            jsons=(app-task-definition.json migrate-task-definition.json cron-task-definition.json) && \
+            for json in ${jsons[@]}; do
+                printf "cat \<<EOF\n`cat $json`\nEOF\n" | sh > "ci-$json"
+            done
+      - run:
+          name: Register new app task definition
+          command: aws ecs register-task-definition --family match-project-dev-app --cli-input-json file://ci-app-task-definition.json --region ap-northeast-1
+      - run:
+          name: Update app service
+          command: aws ecs update-service --cluster match-project-dev --service app --desired-count 1 --task-definition match-project-dev-app --region ap-northeast-1
+      - run:
+          name: Register new migrate task definition
+          command: aws ecs register-task-definition --family match-project-dev-migrate --cli-input-json file://ci-migrate-task-definition.json --region ap-northeast-1
+      - run:
+          name: Get network configurations
+          command: |
+            SUBNETS=$(aws ecs describe-services --cluster match-project-dev --service app --region ap-northeast-1 --query "services[0].networkConfiguration.awsvpcConfiguration.subnets" --output text | awk '{printf "%s,%s",$1,$2}')
+            SECURITY_GROUPS=$(aws ecs describe-services --cluster match-project-dev --service app --region ap-northeast-1 --query "services[0].networkConfiguration.awsvpcConfiguration.securityGroups" --output text)
+            echo "export SUBNETS=$SUBNETS" >> $BASH_ENV
+            echo "export SECURITY_GROUPS=$SECURITY_GROUPS" >> $BASH_ENV
+      - run:
+          name: Run migration task
+          command: |
+            TASK_ARN=$(aws ecs run-task --launch-type FARGATE --cluster match-project-dev --task-definition match-project-dev-migrate --region ap-northeast-1 --count 1 --network-configuration "awsvpcConfiguration={subnets=[$SUBNETS],securityGroups=[$SECURITY_GROUPS],assignPublicIp=ENABLED}" --query "tasks[0].taskArn" --output text)
+            aws ecs wait tasks-stopped --cluster match-project-dev --region ap-northeast-1 --tasks $TASK_ARN
+      - run:
+          name: Register new cron task definition
+          command: aws ecs register-task-definition --family match-project-dev-cron --cli-input-json file://ci-cron-task-definition.json --region ap-northeast-1
+      - run:
+          name: Update cron service
+          command: aws ecs update-service --cluster match-project-dev --service cron --desired-count 1 --task-definition match-project-dev-cron --region ap-northeast-1
+
+workflows:
+  version: 2
+  build-test-deploy:
+    jobs:
+      - checkout:
+          filters:
+            branches:
+              only:
+                - master
+                - develop 
+                - staging
+
+      - build_and_test:
+          requires:
+            - checkout
+      - push_image_test_project_develop:
+          requires:
+            - build_and_test
+      - deploy_web_assets_to_s3_develop:
+          requires:
+            - push_image_test_project_develop
+          filters:
+            branches:
+              only:
+                - develop 
+      - deploy_develop:
+          requires:
+            - deploy_web_assets_to_s3_develop
