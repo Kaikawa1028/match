@@ -19,7 +19,7 @@
         "logConfiguration": {
           "logDriver": "awslogs",
           "options": {
-            "awslogs-group": "/ecs/match-project-nginx",
+            "awslogs-group": "/ecs/match-project-dev-nginx",
             "awslogs-region": "ap-northeast-1",
             "awslogs-stream-prefix": "nginx"
           }
