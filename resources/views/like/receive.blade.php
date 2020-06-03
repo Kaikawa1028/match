@@ -4,11 +4,11 @@
 <div class="container">
     <div class="row justify-content-center mb-4">
         <div class="col-12">
-            <ul class="nav nav-tabs nav-justified mt-3">
+            <ul class="nav nav-tabs nav-justified nav-pills mt-3">
                 <li class="nav-item">
                     <a class="nav-link text-muted active"
                     href="{{ route('like.receive.list') }}">
-                    お相手からもらったいいね
+                    <p class="text-white">お相手からもらったいいね</p>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -32,13 +32,13 @@
                 <div class="col-8">
                     <div class="d-flex flex-row">
                         <div>
-                            <p class="h4">{{ $like->receive_user->user_profile->age ?? "未設定" }}  {{ $like->receive_user->user_profile->residence ?? "" }}</p>   
+                            <p class="h6">{{ $like->receive_user->user_profile->age ?? "未設定" }}  {{ $like->receive_user->user_profile->residence ?? "" }}</p>   
                         </div>
                         <div class="ml-auto">
                             <div class="rounded-pill bg-light">{{ $like->created_at }}</div>
                         </div>
                     </div>
-                    <div class="mb-3">{{ $like->receive_user->user_profile->job ?? "未設定" }}</div>
+                    <div class="mb-lg-3">{{ $like->receive_user->user_profile->job ?? "未設定" }}</div>
                     <like-component 
                         endpoint=@if($like->status == "") {{ route('like.send', ['user' => $like->receive_user->id]) }} @else {{ route('room.message', ['room' => $like->room_id]) }} @endif
                         initial-like-status=@if($like->status == "")'received' @else {{ $like->status }} @endif>
