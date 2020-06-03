@@ -184,7 +184,6 @@ workflows:
               only:
                 - master
                 - develop 
-                - staging
 
       - build_and_test:
           requires:
