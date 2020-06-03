@@ -82,7 +82,7 @@
           },
           {
             "name": "DB_PASSWORD",
-            "value": "rootroot"
+            "value": "pass1234"
           },
           {
             "name": "DB_DATABASE",
