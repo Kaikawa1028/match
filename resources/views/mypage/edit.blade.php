@@ -24,10 +24,11 @@
                 <div class="form-group">
                     <label for="age">年齢</label>
                     <span class="badge badge-primary">必須</span>
-                    <div class="w-25">
+                    <div class="w-50">
                         <select id="age" name="age" class="form-control @error('age') is-invalid @enderror">
-                            <option value="25" @if(old("age")) @if(old("age") == 25) selected @else @endif @else @if(!is_null($result['user_profile']) && $result['user_profile']->age == "25") selected @else   @endif @endif>25歳</option>
-                            <option value="26" @if(old("age")) @if(old("age") == 26) selected @else @endif @else @if(!is_null($result['user_profile']) && $result['user_profile']->age == "26") selected @else   @endif @endif>26歳</option>
+                            @for($i=18; $i<=40; $i++)
+                            <option value="{{$i}}" @if(old("age")) @if(old("age") == $i) selected @else @endif @else @if(!is_null($result['user_profile']) && $result['user_profile']->age == $i) selected @else   @endif @endif>{{$i}}歳</option>
+                            @endfor
                         </select> 
                     </div>
                 </div>
@@ -35,10 +36,11 @@
                 <div class="form-group">
                     <label for="height">身長</label>
                     <span class="badge badge-primary">必須</span>
-                    <div class="w-25">
+                    <div class="w-50">
                         <select id="height" name="height" class="form-control @error('height') is-invalid @enderror">
-                            <option value="165" @if(old("height")) @if(old("height") == 165) selected @else @endif @else @if(!is_null($result['user_profile']) && $result['user_profile']->height == "165") selected @else   @endif @endif>165cm</option>
-                            <option value="170" @if(old("height")) @if(old("height") == 170) selected @else @endif @else @if(!is_null($result['user_profile']) && $result['user_profile']->height == "170") selected @else   @endif @endif>170cm</option>
+                            @for($i=140; $i <= 190; $i++)
+                            <option value="{{$i}}" @if(old("height")) @if(old("height") == $i) selected @else @endif @else @if(!is_null($result['user_profile']) && $result['user_profile']->height == $i) selected @else   @endif @endif>{{$i}}cm</option>
+                            @endfor
                         </select> 
                     </div>
                 </div>
@@ -46,10 +48,17 @@
                 <div class="form-group">
                     <label for="residence">居住地</label>
                     <span class="badge badge-primary">必須</span>
-                    <div class="w-25">
+                    <div class="w-50">
                         <select id="residence" name="residence" class="form-control">
+                        ['東京都', '大阪府', '静岡県', '福岡県', '神奈川県', '沖縄県', '北海道', '香川県'];
                             <option value="東京都" @if(old("residence")) @if(old("residence") == "東京都") selected @else @endif @else @if(!is_null($result['user_profile']) && $result['user_profile']->residence == "東京都") selected @else   @endif @endif>東京都</option>
                             <option value="静岡県" @if(old("residence")) @if(old("residence") == "静岡県") selected @else @endif @else @if(!is_null($result['user_profile']) && $result['user_profile']->residence == "静岡県") selected @else   @endif @endif>静岡県</option>
+                            <option value="大阪府" @if(old("residence")) @if(old("residence") == "大阪府") selected @else @endif @else @if(!is_null($result['user_profile']) && $result['user_profile']->residence == "大阪府") selected @else   @endif @endif>大阪府</option>
+                            <option value="福岡県" @if(old("residence")) @if(old("residence") == "福岡県") selected @else @endif @else @if(!is_null($result['user_profile']) && $result['user_profile']->residence == "福岡県") selected @else   @endif @endif>福岡県</option>
+                            <option value="神奈川県" @if(old("residence")) @if(old("residence") == "神奈川県") selected @else @endif @else @if(!is_null($result['user_profile']) && $result['user_profile']->residence == "神奈川県") selected @else   @endif @endif>神奈川県</option>
+                            <option value="沖縄県" @if(old("residence")) @if(old("residence") == "沖縄県") selected @else @endif @else @if(!is_null($result['user_profile']) && $result['user_profile']->residence == "沖縄県") selected @else   @endif @endif>沖縄県</option>
+                            <option value="北海道" @if(old("residence")) @if(old("residence") == "北海道") selected @else @endif @else @if(!is_null($result['user_profile']) && $result['user_profile']->residence == "北海道") selected @else   @endif @endif>北海道</option>
+                            <option value="香川県" @if(old("residence")) @if(old("residence") == "香川県") selected @else @endif @else @if(!is_null($result['user_profile']) && $result['user_profile']->residence == "香川県") selected @else   @endif @endif>香川県</option>
                         </select>
                     </div>
                 </div>

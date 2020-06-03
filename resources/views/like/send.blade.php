@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row justify-content-center mb-4">
         <div class="col-12">
-            <ul class="nav nav-tabs nav-justified mt-3">
+            <ul class="nav nav-tabs nav-justified nav-pills mt-3">
                 <li class="nav-item">
                     <a class="nav-link text-muted"
                     href="{{ route('like.receive.list') }}">
@@ -14,7 +14,7 @@
                 <li class="nav-item">
                     <a class="nav-link text-muted active"
                     href="{{ route('like.send.list') }}">
-                    自分からあげたいいね
+                    <p class="text-white">自分からあげたいいね</p>
                     </a>
                 </li>
             </ul>
