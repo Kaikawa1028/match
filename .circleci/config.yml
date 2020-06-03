@@ -108,8 +108,8 @@ jobs:
           name: add latest tag
           command: |
             docker tag \
-              ${AWS_ECR_ACCOUNT_URL}/sample-project-app-development:${CIRCLE_SHA1} \
-              ${AWS_ECR_ACCOUNT_URL}/sample-project-app-development:latest
+              ${AWS_ECR_ACCOUNT_URL}/match-project-app-development:${CIRCLE_SHA1} \
+              ${AWS_ECR_ACCOUNT_URL}/match-project-app-development:latest
       - aws-ecr/push-image:
           repo: "match-project-app-development"
           tag: "latest"

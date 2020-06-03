@@ -1,0 +1,123 @@
+{
+    "networkMode": "awsvpc",
+    "cpu": "256",
+    "memory": "512",
+    "requiresCompatibilities": [ "FARGATE"],
+    "executionRoleArn": "$AWS_ECS_TASK_EXECUTION_ROLE_ARN",
+    "containerDefinitions":
+    [
+      {
+        "name": "cron",
+        "image": "$AWS_ECR_ACCOUNT_URL/match-project-app-development:latest",
+        "entryPoint": ["/bin/sh"],
+        "command": ["-c", "echo '* * * * * php /app/artisan schedule:run' > /var/spool/cron/crontabs/root && crond -l 2 -f"],
+        "essential": true,
+        "logConfiguration": {
+          "logDriver": "awslogs",
+          "options": {
+            "awslogs-group": "/ecs/match-project-dev-cron",
+            "awslogs-region": "ap-northeast-1",
+            "awslogs-stream-prefix": "cron"
+          }
+        },
+        "environment": [
+          {
+            "name": "APP_NAME",
+            "value": "match-project"
+          },
+          {
+            "name": "APP_ENV",
+            "value": "development"
+          },
+          {
+            "name": "APP_DEBUG",
+            "value": "true"
+          },
+          {
+            "name": "LOG_CHANNEL",
+            "value": "cloudwatch"
+          },
+          {
+            "name": "CLOUDWATCH_LOG_RETENTION",
+            "value": "60"
+          },
+          {
+            "name": "DB_CONNECTION",
+            "value": "mysql"
+          },
+          {
+            "name": "DB_HOST",
+            "value": "$DB_HOST_DEV"
+          },
+          {
+            "name": "DB_PORT",
+            "value": "3306"
+          },
+          {
+            "name": "DB_USERNAME",
+            "value": "organizer"
+          },
+          {
+            "name": "DB_PASSWORD",
+            "value": "rootroot"
+          },
+          {
+            "name": "DB_DATABASE",
+            "value": "lara_match"
+          },
+          {
+            "name": "BROADCAST_DRIVER",
+            "value": "log"
+          },
+          {
+            "name": "CACHE_DRIVER",
+            "value": "redis"
+          },
+          {
+            "name": "SESSION_DRIVER",
+            "value": "redis"
+          },
+          {
+            "name": "SESSION_LIFETIME",
+            "value": "10080"
+          },
+          {
+            "name": "REDIS_HOST",
+            "value": "$REDIS_HOST_DEV"
+          },
+          {
+            "name": "REDIS_PASSWORD",
+            "value": "null"
+          },
+          {
+            "name": "REDIS_PORT",
+            "value": "6379"
+          },
+          {
+            "name": "AWS_BUCKET",
+            "value": "match-project.dev.uploads"
+          },
+          {
+            "name": "MAIL_DRIVER",
+            "value": "ses"
+          },
+          {
+            "name": "MAIL_FROM_ADDRESS",
+            "value": "tmp"
+          },
+          {
+            "name": "MAIL_FROM_NAME",
+            "value": "dev"
+          },
+          {
+            "name": "SES_REGION",
+            "value": "us-east-1"
+          },
+          {
+            "name": "ADMIN_HTTPS",
+            "value": "true"
+          }
+        ]
+      }
+    ]
+  }
