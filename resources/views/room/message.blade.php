@@ -39,19 +39,25 @@
     </div>
     <div class="fixed-bottom">
         <div class="row justify-content-center bg-light">
-            <div class="col-7 mt-4">
+            <div class="col-10 col-md-7 mt-4">
                 @can('paid-member')
                 <form action="{{ route('room.message.send', ['room' => $result['room_id']]) }}" method="post">
                     @csrf
-                    <div class="form-group">
-                        <textarea name="text" required class="form-control" rows="4" placeholder="本文"></textarea>
+                    <div class="d-flex flex-row">
+                        <div class="w-75">
+                            <div class="form-group">
+                                <textarea name="text" required class="form-control" rows="4" placeholder="本文" style="height: 75px;"></textarea>
+                            </div>    
+                        </div>
+                        <div class="w-25">
+                            <button type="submit" class="btn btn-primary" style="padding: 0.84rem 1.14rem;">送信</button>
+                        </div>    
                     </div>
-                    <button type="submit" class="btn btn-primary">メッセージを送る</button>
                 </form>
                 @elsecan('free-member')
-                <div class="mb-5">
-                    <p>有料会員のみメッセージを送ることができます。※サンプルアプリなので無料で有料会員になれます＾＾</p>
-                    <a href="{{ route('user.paid') }}"><button type="button" class="btn btn-default">有料会員になる</button></a>
+                <div class="mb-1">
+                    <p class="h6">有料会員のみメッセージを送ることができます。※サンプルアプリなので無料で有料会員になれます＾＾</p>
+                    <a href="{{ route('user.paid') }}"><button type="button" class="btn btn-default" style="padding:0rem 2.14rem; height:32px;">有料会員になる</button></a>
                 </div>
                 @endcan
             </div>
