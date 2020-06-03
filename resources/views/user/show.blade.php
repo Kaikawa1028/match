@@ -17,13 +17,13 @@
                     @endif
                 </div>
             </div>
-            <like-component endpoint=@if($result['like']->status == "") {{ route('like.send', ['user' => $user->id]) }} @else {{ route('room.message', ['room' => $result['like']->room_id]) }} @endif 
+            <like-component endpoint=@if(!is_null($result['like']) && $result['like']->status == "matched") {{ route('room.message', ['room' => $result['like']->room_id]) }} @else {{ route('like.send', ['user' => $user->id]) }}@endif 
                             initial-like-status={{ Auth::user()->getLikeStatus($user) }} >
             </like-component>
         </div>
         <div class="col-md-7">
             <table class="table">
-                <thead>
+                <thead class="blue text-white">
                     <tr>
                         <th scope="col">基本情報</th>
                         <th scope="col"></th>
