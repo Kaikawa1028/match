@@ -19,7 +19,7 @@
             </div>
             <div class="row justify-content-center mb-3">
                 <div class="col-md-10">
-                    <a href="{{ route('mypage.edit') }}"><button type="button" class="btn btn-default w-100">プロフィール編集へ</button></a>
+                    <a href="{{ route('mypage.edit') }}"><button type="button" class="btn btn-default w-100">プロフィール編集</button></a>
                 </div>
             </div>
             <div class="row justify-content-center">
@@ -32,7 +32,7 @@
         </div>
         <div class="col-md-7">
             <table class="table mb-5">
-                <thead>
+                <thead class="blue text-white">
                     <tr>
                         <th scope="col">登録情報</th>
                         <th scope="col"></th>
@@ -50,7 +50,7 @@
                 </tbody>
             </table>
             <table class="table">
-                <thead>
+                <thead class="blue text-white">
                     <tr>
                         <th scope="col">基本情報</th>
                         <th scope="col"></th>
