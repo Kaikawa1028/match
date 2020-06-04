@@ -172,7 +172,7 @@ jobs:
           command: aws ecs register-task-definition --family match-project-dev-cron --cli-input-json file://ci-cron-task-definition.json --region ap-northeast-1
       - run:
           name: Update cron service
-          command: aws ecs update-service --cluster match-project-dev --service cron --desired-count 1 --task-definition match-project-dev-cron --region ap-northeast-1
+          command: aws ecs update-service --cluster match-project-dev --service cron --desired-count 0 --task-definition match-project-dev-cron --region ap-northeast-1
 
 workflows:
   version: 2
