@@ -63,7 +63,7 @@ class DatabaseSeeder extends Seeder
         'https://matching-kou.s3-ap-northeast-1.amazonaws.com/9/Cj3FiF2sBboVeCKS.jpg',
         'https://matching-kou.s3-ap-northeast-1.amazonaws.com/10/HvA9NTNJmq8JCRxn.jpg',
         'https://matching-kou.s3-ap-northeast-1.amazonaws.com/11/ikemen3.jpg',
-        'https://matching-kou.s3-ap-northeast-1.amazonaws.com/12/images+(1).jpeg',
+        'https://matching-kou.s3-ap-northeast-1.amazonaws.com/12/8692aeca795b8d34d9613d19ba4bcd.jpg',
         'https://matching-kou.s3-ap-northeast-1.amazonaws.com/13/images.jpeg',
         'https://matching-kou.s3-ap-northeast-1.amazonaws.com/14/man1-600x400.jpg',
         'https://matching-kou.s3-ap-northeast-1.amazonaws.com/15/shutterstock_105312263.jpg',
