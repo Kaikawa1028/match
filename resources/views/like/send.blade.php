@@ -32,13 +32,13 @@
                 <div class="col-8">
                     <div class="d-flex flex-row">
                         <div>
-                            <p class="h4">{{ $like->send_user->user_profile->age ?? "未設定" }}  {{ $like->send_user->user_profile->residence ?? "" }}</p>   
+                            <p class="h6">{{ $like->send_user->user_profile->age ?? "未設定" }}  {{ $like->send_user->user_profile->residence ?? "" }}</p>   
                         </div>
                         <div class="ml-auto">
                             <div class="rounded-pill bg-light">{{ $like->created_at }}</div>
                         </div>
                     </div>
-                    <div class="mb-3">{{ $like->send_user->user_profile->job ?? "未設定" }}</div>
+                    <div class="mb-lg-3">{{ $like->send_user->user_profile->job ?? "未設定" }}</div>
                     <like-component
                         endpoint=@if($like->status == "") {{ route('like.send', ['user' => $like->send_user->id]) }} @else {{ route('room.message', ['room' => $like->room_id]) }} @endif
                         initial-like-status=@if($like->status == "")'sended' @else {{ $like->status }} @endif>

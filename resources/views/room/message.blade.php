@@ -12,7 +12,7 @@
                             <img class="rounded-circle w-75" src="{{ $message->from_user->user_profile->img_url ?? config('view.default_img') }}"  alt="写真なし"></img>
                         </a>
                     </div>
-                    <div class="col-8">
+                    <div class="col-9">
                         <div class="row">
                             <div class="col-7 balloon-left">
                                 <p class="font-weight-lighter">{!! nl2br(e($message->text)) !!}</p>
