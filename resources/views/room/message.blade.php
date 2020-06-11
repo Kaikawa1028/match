@@ -7,12 +7,12 @@
             @foreach($result['messages'] as $message)
                 @if($user->id != $message->from_user_id)
                 <div class="row mb-4">
-                    <div class="col-4 col-md-2">
+                    <div class="col-3 col-md-2">
                         <a href="#" class="text-dark">
                             <img class="rounded-circle w-75" src="{{ $message->from_user->user_profile->img_url ?? config('view.default_img') }}"  alt="写真なし"></img>
                         </a>
                     </div>
-                    <div class="col-8">
+                    <div class="col-9">
                         <div class="row">
                             <div class="col-7 balloon-left">
                                 <p class="font-weight-lighter">{!! nl2br(e($message->text)) !!}</p>
@@ -50,7 +50,7 @@
                             </div>    
                         </div>
                         <div class="w-25">
-                            <button type="submit" class="btn btn-primary" style="padding: 0.84rem 1.14rem;">送信</button>
+                            <button type="submit" class="btn btn-primary" style="padding: 0.4rem 0.4rem;">送信</button>
                         </div>    
                     </div>
                 </form>
