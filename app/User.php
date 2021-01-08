@@ -48,7 +48,7 @@ class User extends Authenticatable
         $like = Like::where('from_user_id', $this->id)->where('to_user_id', $user->id)->first();
 
         if(!empty($like)) {
-            if(is_null($like->status)) {
+            if(empty($like->status)) {
                 return "sended";
             }
 
@@ -58,7 +58,7 @@ class User extends Authenticatable
         $like = Like::where('from_user_id', $user->id)->where('to_user_id', $this->id)->first();
 
         if(!empty($like)) {
-            if(is_null($like->status)) {
+            if(empty($like->status)) {
                 return "received";
             }
 
