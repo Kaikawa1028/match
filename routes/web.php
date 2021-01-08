@@ -15,6 +15,10 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('/health', function () {
+    return response()->json();
+});
+
 Route::middleware('auth')->group( function() {
     Route::get('/', 'UserController@index')->name('user');
     Route::get('/paid', 'UserController@paid')->name('user.paid');
